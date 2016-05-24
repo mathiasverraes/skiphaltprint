@@ -10,17 +10,12 @@ run = mapM_ (putStr . (++" ") . interp . fizzbuzz) [1..100]
 interp :: [Context] -> String
 interp c = foldr (.) id c ""
 
-step :: Cmd -> String -> String
-step Skip x = x
-step Halt _ = ""
-step (Print x) y = x ++ y
-
 fizzbuzz :: Int -> [Context]
-fizzbuzz n = (base . test 3 "Fizz" . test 5 "Buzz") [step Skip]
+fizzbuzz n = (base . test 3 "Fizz" . test 5 "Buzz") [id]
   where
     test d str
-      | n `mod` d == 0 = \p -> [step $ Print str] ++ p ++ [step Halt]
+      | n `mod` d == 0 = \p -> [(str ++)] ++ p ++ [const ""]
       | otherwise = id
-    base = \p -> p ++ [step $ Print (show n)]
+    base = \p -> p ++ [((show n)++)]
 
 
