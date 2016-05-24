@@ -1,13 +1,11 @@
 module SkipHaltPrint where
 
-import Control.Monad
-
 data Cmd = Skip | Halt | Print String deriving(Show)
 type Program = [Cmd]
 type Context = Program -> Program
 
-sample :: Program
-sample = [Print "foo", Skip, Print "bar", Halt, Print "baz"]
+run :: IO ()
+run = mapM_ (putStrLn . interp . fizzbuzz) [1..100]
 
 interp :: Program -> String
 interp [] = ""
