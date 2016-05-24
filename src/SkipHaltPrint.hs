@@ -8,7 +8,7 @@ run :: IO ()
 run = mapM_ (putStr . (++" ") . interp . fizzbuzz) [1..100]
 
 interp :: Program -> String
-interp = foldr step ""
+interp p = foldr (.) id (fmap step p) ""
 
 step :: Cmd -> String -> String
 step Skip x = x
