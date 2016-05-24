@@ -8,10 +8,10 @@ run :: IO ()
 run = mapM_ (putStr . (++" ")  . fizzbuzz) [1..100]
 
 fizzbuzz :: Int -> String
-fizzbuzz n = (test 3 "Fizz" . test 5 "Buzz") id (show n)
+fizzbuzz n = ((3 >=> "Fizz") . (5 >=> "Buzz")) id (show n)
   where
-    test d str
-      | n `mod` d == 0 = \p -> (str ++) . p . const ""
-      | otherwise = id
-
+     test d str f
+      | n `mod` d == 0 = const(str ++ f "")
+      | otherwise = f
+     (>=>) = test
 
