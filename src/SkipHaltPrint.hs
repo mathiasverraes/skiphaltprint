@@ -14,14 +14,11 @@ interp (Halt:_) = ""
 interp (Print s:cmds) = s ++ interp cmds
 
 fizzbuzz :: Int -> Program
-fizzbuzz n = (base . fizz . buzz) [Skip]
+fizzbuzz n = (base . test 3 "Fizz" . test 5 "Buzz") [Skip]
   where
-    fizz
-      | n `mod` 3 == 0 = \p -> [Print "Fizz"] ++ p ++ [Halt]
-      | otherwise = \p -> p ++ [Skip]
-    buzz
-      | n `mod` 5 == 0 = \p -> [Print "Buzz"] ++ p ++ [Halt]
-      | otherwise = \p -> p ++ [Skip]
+    test d str
+      | n `mod` d == 0 = \p -> [Print str] ++ p ++ [Halt]
+      | otherwise = id
     base = \p -> p ++ [Print (show n)]
 
 
