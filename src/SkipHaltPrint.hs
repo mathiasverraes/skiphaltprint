@@ -14,4 +14,4 @@ fizzbuzz n = rules id (show n)
      rules =
           (3 >=> "Fizz")
         . (5 >=> "Buzz")
-        . (7 >=> "Hiss")
+        . (7 >=> "Woo")
